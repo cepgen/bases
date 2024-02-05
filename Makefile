@@ -1,5 +1,5 @@
 # Makefile for library BASES ver 5.1
-TARGET=libBases.so
+TARGET=libbases.so
 
 FC=gfortran
 CC=gcc
@@ -28,7 +28,7 @@ all: $(TARGET)
 
 $(TARGET): $(FOBJECTS) $(COBJECTS)
 	@echo "Linking $<"
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 clean:
 	@rm -f ${FOBJECTS} ${COBJECTS} ${TARGET}
