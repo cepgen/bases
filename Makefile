@@ -1,19 +1,19 @@
 # Makefile for library BASES ver 5.1
-FC=gfortran
-FFLAGS=-O -fallow-argument-mismatch
-CC=gcc
-CFLAGS=-lgfortran -lm
+TARGET=libBases.so
 
-FSOURCES=$(shell echo *.f)
-CSOURCES=$(shell echo *.c)
+FC=gfortran
+CC=gcc
+FFLAGS=-O -fallow-argument-mismatch -fPIC
+CFLAGS=-lgfortran -lm -shared
+
+OBJ=obj
+
+FSOURCES=$(shell echo src/*.f)
+CSOURCES=$(shell echo src/*.c)
 FOBJECTS=$(FSOURCES:.f=.o)
 COBJECTS=$(CSOURCES:.c=.o)
 
-TARGET=libBases.so
-
-obj := obj
-
-vpath %.o $(obj)
+vpath %.o $(OBJ)
 
 %.o: %.f
 	@echo "Building $<"
@@ -31,5 +31,4 @@ $(TARGET): $(FOBJECTS) $(COBJECTS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 clean:
-	@rm -f ${FOBJECTS}
-	@rm -f ${COBJECTS}
+	@rm -f ${FOBJECTS} ${COBJECTS} ${TARGET}
